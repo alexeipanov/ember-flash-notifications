@@ -1,5 +1,15 @@
-{{page-title "Dummy"}}
+{{page-title "Ember-essential-notifications"}}
 
-<h2 id="title">Welcome to Ember</h2>
-
-{{outlet}}
+<div class="h-screen py-6 flex justify-center bg-slate-50 bg-gradient-to-br from-slate-50 to-sky-100 border">
+  <main class="max-w-screen-xl h-full w-full bg-white border-sky-100">
+    <div class="p-4">
+      <h2 class="text-6xl font-bold text-slate-500">Ember-essential-notifications</h2>
+      <div class="my-4">
+        <FlashNotifications />
+      </div>
+      <div class="my-4">
+        <button onClick={{fn this.addNotification "error"}} type="button" class="py-2 px-6 bg-sky-600 text-white">Error</button>
+      </div>
+    </div>
+  </main>
+</div>

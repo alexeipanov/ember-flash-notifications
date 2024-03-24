@@ -1,1 +1,52 @@
-/* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .flash-list {
+    @apply absolute z-50 inset-0 flex items-start mt-20 pointer-events-none;
+  }
+
+  .flash {
+    transition-behavior: allow-discrete;
+    @apply w-full pointer-events-auto border-transparent border-0 border-b md:border transform transform-gpu transition-all duration-500 opacity-0 scale-75 relative;
+  }
+
+  .flash:popover-open {
+    @apply opacity-100 scale-100;
+  }
+
+  @starting-style {
+    .flash:popover-open {
+      @apply opacity-0 scale-75;
+    }
+  }
+
+  .flash.success {
+    @apply bg-emerald-500;
+  }
+
+  .flash.error {
+    @apply bg-red-500;
+  }
+
+  .flash.warning {
+    @apply bg-orange-500;
+  }
+
+  .flash.info {
+    @apply bg-sky-500;
+  }
+
+  .flash .flash-type {
+    @apply mx-auto flex-shrink-0 flex items-center justify-center sm:mx-0 text-white;
+  }
+
+  .flash .flash-content {
+    @apply ml-3 w-0 flex-1 text-sm text-white;
+  }
+
+  .flash .flash-close {
+    @apply text-white focus:outline-none;
+  }
+}
