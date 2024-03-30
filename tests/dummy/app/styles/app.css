@@ -9,6 +9,7 @@
 
   .flash {
     transition-behavior: allow-discrete;
+
     @apply w-full pointer-events-auto border-transparent border-0 border-b md:border transform transform-gpu transition-all duration-500 opacity-0 scale-75 relative;
   }
 
