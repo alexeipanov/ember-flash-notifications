@@ -1,3 +1,15 @@
 {{page-title "Ember-essential-notifications"}}
-<LinkTo @route="first">First</LinkTo>
-{{outlet}}
+<FlashNotifications />
+<div class="h-screen py-6 flex justify-center bg-slate-50 bg-gradient-to-br from-slate-50 to-sky-100 border">
+  <main class="max-w-screen-xl h-full w-full bg-white border-sky-100">
+    <div class="p-4">
+      <h2 class="text-6xl font-bold text-slate-500">Ember-essential-notifications</h2>
+      <div class="my-4">
+        <button onClick={{fn this.addNotification "error"}} type="button" class="py-2 px-6 bg-sky-600 text-white">Error</button>
+        <button onClick={{fn this.addNotification "warning"}} type="button" class="py-2 px-6 bg-sky-600 text-white">Warning</button>
+        <button onClick={{fn this.addNotification "success"}} type="button" class="py-2 px-6 bg-sky-600 text-white">Success</button>
+        <button onClick={{fn this.addNotification "info"}} type="button" class="py-2 px-6 bg-sky-600 text-white">Info</button>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,4 +1,5 @@
 <div
+  role="alert"
   class="flash"
   popover="manual"
   {{on "toggle" this.onToggle}}
@@ -8,22 +9,19 @@
   <div class="p-4">
     <div class="flex items-start">
       <div class="flash-content">
-        <p class="text-xl font-bold leading-6">
-          {{@notification.title}}
-        </p>
         <div class="flex pl-2">
           <div class="flash-type">
             {{#if @notification.isSuccess}}
-              <Icons::FasCircleCheck class="text-seaweed" />
+              <Icons::FasCircleCheck class="w-6 h-6 fill-white text-white" />
             {{/if}}
             {{#if @notification.isError}}
-              <Icons::FarCircleXmark class="w-8 h-8 fill-red-500 text-red-500" />x
+              <Icons::FarCircleXmark class="w-6 h-6 fill-white text-white" />
             {{/if}}
             {{#if @notification.isWarning}}
-              <Icons::FasCircleExclamation class="text-orange" />
+              <Icons::FasCircleExclamation class="w-6 h-6 fill-white text-white" />
             {{/if}}
-            {{#if @notification.type.isInfo}}
-              <Icons::FasCircleInfo class="text-blue-bright" />
+            {{#if @notification.isInfo}}
+              <Icons::FasCircleInfo class="w-6 h-6 fill-white text-white" />
             {{/if}}
           </div>
           <p class="text-base p-2">
@@ -34,7 +32,7 @@
     </div>
   </div>
   <div class="absolute top-2 right-2 flex-shrink-0 flex">
-    <button type="button" class="flash-close">
+    <button type="button" name="close" class="flash-close">
       <span class="sr-only">Close</span>
       <Icons::FasTimes class="h-5 w-5" />
     </button>

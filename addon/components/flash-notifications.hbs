@@ -1,5 +1,5 @@
 <div class="flash-list" aria-live="assertive" ...attributes>
-  <div class="w-full flex flex-col items-center md:space-y-4 md:items-end">
+  <div class="w-full flex flex-col items-start justify-start">
     {{#each this.notifications.queue as |notification|}}
       <FlashNotification
         class={{notification.type}}

@@ -2,6 +2,9 @@
 /dist/
 /tmp/
 
+# packages
+/.pnpm-store
+
 # misc
 /.editorconfig
 /.ember-cli
@@ -12,6 +15,7 @@
 /.git/
 /.github/
 /.gitignore
+/.npmrc
 /.prettierignore
 /.prettierrc.js
 /.stylelintignore

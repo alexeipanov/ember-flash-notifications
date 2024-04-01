@@ -5,9 +5,11 @@
 # dependencies
 /node_modules/
 
+
 # misc
 /.env*
 /.pnp*
+/.npmrc
 /.eslintcache
 /coverage/
 /npm-debug.log*

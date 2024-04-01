@@ -1,27 +1,32 @@
 import Component from '@glimmer/component';
 
+const closedState = 'closed';
+
+const listenerOptions = {
+  passive: false,
+  once: true,
+};
+
 export default class FlashNotificationComponent extends Component {
   onToggle = (event) => {
-    let closeButton = event.target.querySelector('.flash-close');
-    if (event.newState === 'close') {
-      console.log(event.target.onclick);
-      event.target.addEventListener('transitionend', this.removeNotification);
-      closeButton?.removeEventListener('click', this.close);
+    if (event.newState === closedState) {
+      event.target.addEventListener(
+        'transitionend',
+        this.removeNotification,
+        listenerOptions,
+      );
     } else {
-      closeButton?.addEventListener('click', this.close);
+      let closeButton = event.target.querySelector('button[name="close"]');
+      closeButton?.addEventListener('click', this.close, listenerOptions);
     }
   };
 
-  removeNotification = (event) => {
-    if (event.newState === 'close') {
-      this.args.onClose(this.args.notification);
-    }
+  removeNotification = () => {
+    this.args.onClose(this.args.notification);
   };
 
   close = (event) => {
-    let popover = event.target.closest('.flash[popover]');
-    console.log(popover.ontransitionend);
+    let popover = event.target.closest('[popover]');
     popover?.hidePopover();
-    popover?.removeEventListener('transitionend', this.removeNotification);
   };
 }
