@@ -9,6 +9,7 @@ module.exports = function (defaults) {
         cacheInclude: [/.*.(css|hbs)$/, /.tailwind.config.js$/],
         plugins: [
           {
+            // eslint-disable-next-line n/no-missing-require
             module: require('postcss-import'),
             options: {
               path: ['node_modules'],

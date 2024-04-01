@@ -1,5 +1,7 @@
+// eslint-disable-next-line no-undef
 const defaultTheme = require('tailwindcss/defaultTheme');
 
+// eslint-disable-next-line no-undef
 module.exports = {
   content: [
     './addon/components/**/*.hbs',
