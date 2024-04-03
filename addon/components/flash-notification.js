@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { inject as service } from '@ember/service';
 
 const closedState = 'closed';
 
@@ -8,6 +9,8 @@ const listenerOptions = {
 };
 
 export default class FlashNotificationComponent extends Component {
+  @service notifications;
+
   onToggle = (event) => {
     if (event.newState === closedState) {
       event.target.addEventListener(
@@ -22,7 +25,7 @@ export default class FlashNotificationComponent extends Component {
   };
 
   removeNotification = () => {
-    this.args.onClose(this.args.notification);
+    this.notifications.remove(this.args.notification);
   };
 
   close = (event) => {

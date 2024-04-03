@@ -1,6 +1,5 @@
 import Modifier from 'ember-modifier';
 import { cancel, later } from '@ember/runloop';
-import { inject as service } from '@ember/service';
 import { registerDestructor } from '@ember/destroyable';
 
 const cleanup = function (instance) {
@@ -8,25 +7,28 @@ const cleanup = function (instance) {
 };
 
 export default class ShowPopover extends Modifier {
-  @service notifications;
-
   constructor() {
     super(...arguments);
     registerDestructor(this, cleanup);
   }
 
-  modify(element) {
+  // eslint-disable-next-line no-empty-pattern
+  modify(element, [], { duration = 0 }) {
     element.showPopover();
-    this.closeTask = this.autoClose(element);
+    this.closeTask = this.autoClose(element, duration);
   }
 
-  autoClose(element) {
+  autoClose(element, duration) {
     return later(
       this,
       function () {
+        if (!duration) {
+          return;
+        }
+
         element.hidePopover();
       },
-      this.notifications.duration,
+      duration,
     );
   }
 }
