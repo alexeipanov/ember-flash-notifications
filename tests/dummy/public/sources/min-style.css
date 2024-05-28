@@ -1,0 +1,17 @@
+[popover] {
+  @apply my-0 mr-0;
+}
+
+.flash {
+  @apply w-80 border transition-opacity block opacity-0;
+}
+
+.flash:popover-open {
+  @apply opacity-100;
+}
+
+@starting-style {
+  .flash:popover-open {
+    @apply opacity-0;
+  }
+}

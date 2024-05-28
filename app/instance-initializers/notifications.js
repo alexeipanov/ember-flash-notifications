@@ -1,4 +1,1 @@
-export {
-  default,
-  initialize,
-} from 'essential-flash-notifications/instance-initializers/notifications';
+export { default, initialize } from 'essential-flash-notifications/instance-initializers/notifications';

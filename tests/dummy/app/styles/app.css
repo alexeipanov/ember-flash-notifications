@@ -3,51 +3,125 @@
 @tailwind utilities;
 
 @layer components {
-  .flash-list {
-    @apply absolute z-50 flex items-start mt-0 pointer-events-none;
+  h1,
+  h2,
+  h3 {
+    @apply font-light text-slate-500;
+  }
+
+  h1 {
+    @apply text-4xl;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+
+  p {
+    @apply text-slate-700;
+  }
+
+  pre[class*="language-"] {
+    margin: 0;
+
+    @apply rounded-sm border border-slate-200;
+  }
+
+  .tab-container pre[class*="language-"] {
+    @apply rounded-tl-none border border-slate-200;
+  }
+
+  [popover] {
+    @apply my-0 mr-0;
   }
 
   .flash {
-    transition-behavior: allow-discrete;
-
-    @apply w-full pointer-events-auto border-transparent border-0 border-b border transform transform-gpu transition-all duration-500 opacity-0 scale-75 relative;
+    @apply w-80 pointer-events-auto bg-transparent border-transparent border transform-gpu transition-all duration-500 block opacity-0 -translate-x-full;
   }
 
   .flash:popover-open {
-    @apply opacity-100 scale-100;
+    @apply opacity-100 translate-x-0;
   }
 
   @starting-style {
     .flash:popover-open {
-      @apply opacity-0 scale-75;
+      @apply opacity-0 -translate-x-full;
     }
   }
 
-  .flash.success {
-    @apply bg-emerald-500;
+  .flash .flash-content {
+    @apply bg-white;
   }
 
-  .flash.error {
-    @apply bg-red-500;
+  .flash.success .flash-content {
+    @apply text-emerald-500 border-emerald-500;
   }
 
-  .flash.warning {
-    @apply bg-orange-500;
+  .flash.error .flash-content {
+    @apply text-red-500 border-red-500;
   }
 
-  .flash.info {
-    @apply bg-sky-500;
+  .flash.warning .flash-content {
+    @apply text-orange-500 border-orange-500;
+  }
+
+  .flash.info .flash-content {
+    @apply text-sky-500 border-sky-500;
+  }
+
+  .flash.custom {
+    @apply w-[40rem];
+  }
+
+  .flash.custom .flash-content {
+    @apply text-slate-800 border-lime-400;
+  }
+
+  .flash.custom .flash-content pre {
+    @apply text-slate-500 text-sm;
   }
 
   .flash .flash-type {
-    @apply mx-auto flex-shrink-0 flex items-center justify-center sm:mx-0 text-white;
+    @apply mx-0 flex-shrink-0 flex items-center justify-center text-white;
   }
 
   .flash .flash-content {
-    @apply ml-3 w-0 flex-1 text-sm text-white;
+    @apply relative w-0 flex-1 text-sm border rounded;
   }
 
   .flash .flash-close {
-    @apply text-white focus:outline-none;
+    @apply focus:outline-none;
+  }
+
+  .tabs {
+    @apply -mb-px flex;
+  }
+
+  .tab {
+    @apply rounded-t-sm border border-slate-200 border-b border-b-slate-200 bg-slate-100 py-2 px-4 -ml-px text-slate-500 transition-colors duration-500 ease-in-out;
+  }
+
+  .tab:first-child {
+    @apply ml-0;
+  }
+
+  .tab.active {
+    @apply text-slate-700 bg-[#f5f2f0] border border-slate-200 border-b border-b-transparent;
+  }
+
+  .tab-content {
+    @apply hidden;
+  }
+
+  .tab-content.active {
+    @apply block;
+  }
+
+  .tabs-container {
+    @apply border border-slate-200 p-6 rounded-b-sm;
   }
 }

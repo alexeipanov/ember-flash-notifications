@@ -3,8 +3,9 @@
   class="flash"
   popover="manual"
   {{on "toggle" this.onToggle}}
-  {{show-popover duration=this.notifications.duration}}
+  {{on "beforetoggle" this.onBeforeToggle}}
+  {{show-popover duration=this.duration}}
   ...attributes
 >
-  {{yield @notification}}
+  {{yield}}
 </div>

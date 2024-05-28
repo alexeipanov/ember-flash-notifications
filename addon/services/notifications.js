@@ -1,17 +1,15 @@
 import { A } from '@ember/array';
 import Service from '@ember/service';
+import { tracked } from '@glimmer/tracking';
 
 class Notification {
-  title = '';
-
+  type = 'info';
   message = '';
 
-  type = 'success';
-
-  constructor(type, title, message) {
+  constructor(type, message, options = {}) {
     this.type = type;
-    this.title = title;
     this.message = message;
+    this.options = options;
   }
 
   get isSuccess() {
@@ -29,40 +27,59 @@ class Notification {
   get isInfo() {
     return this.type === 'info';
   }
+
+  get isCustom() {
+    return this.type === 'custom';
+  }
+
+  get duration() {
+    return this.options.duration;
+  }
 }
 
+const defaults = {
+  duration: 5000,
+};
+
+const mergeOptions = (defaults, custom) => ({ ...defaults, ...custom });
+
 export default class NotificationsService extends Service {
+  @tracked
   queue = A([]);
 
   setup(options) {
-    this.duration = options.duration;
+    this.options = mergeOptions(defaults, options);
   }
 
-  add(notification) {
-    this.queue.pushObject(notification);
+  add(type, message, options) {
+    this.queue.pushObject(new Notification(type, message, mergeOptions(this.options, options)));
   }
 
   remove(notification) {
     this.queue.removeObject(notification);
   }
 
-  success(title, message) {
-    let notification = new Notification('success', title, message);
-    this.add(notification);
+  clear() {
+    this.queue = A([]);
   }
 
-  error(title, message) {
-    let notification = new Notification('error', title, message);
-    this.add(notification);
+  success(message, options = {}) {
+    this.add('success', message, options);
   }
 
-  warning(title, message) {
-    let notification = new Notification('warning', title, message);
-    this.add(notification);
+  error(message, options = {}) {
+    this.add('error', message, options);
   }
 
-  info(title, message) {
-    let notification = new Notification('info', title, message);
-    this.add(notification);
+  warning(message, options = {}) {
+    this.add('warning', message, options);
+  }
+
+  info(message, options = {}) {
+    this.add('info', message, options);
+  }
+
+  custom(message, options) {
+    this.add('custom', message, options);
   }
 }

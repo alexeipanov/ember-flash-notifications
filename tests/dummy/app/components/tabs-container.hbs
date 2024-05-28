@@ -1,0 +1,17 @@
+<div class="tabs-menu" ...attributes>
+  <nav class="tabs" aria-label="Tabs">
+    {{#each @tabs as |tab|}}
+      <span
+        role="button"
+        class="table-link tab"
+        {{on "click" (fn this.toggleTab tab)}}
+        {{toggle-class isOn=(eq tab this.activeTab) className="active"}}
+      >
+        {{tab.title}}
+      </span>
+    {{/each}}
+  </nav>
+</div>
+<div class="tab-container">
+  {{yield this.activeTab}}
+</div>

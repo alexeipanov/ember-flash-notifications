@@ -1,57 +1,81 @@
-{{page-title "Ember-essential-notifications"}}
+{{page-title "ember-flash-notifications addon"}}
+{{component this.currentComponent}}
 
-<FlashNotifications as |notifications|>
-  {{#each notifications.queue as |notification|}}
-    <FlashNotification
-      class={{notification.type}}
-      @notification={{notification}}
-      @onClose={{this.removeNotification}}
-      as |notification|
-    >
-      <div class="p-4">
-        <div class="flex items-start">
-          <div class="flash-content">
-            <div class="flex pl-2">
-              <div class="flash-type">
-                {{#if notification.isSuccess}}
-                  <Icons::FasCircleCheck class="w-6 h-6 fill-white text-white" />
-                {{/if}}
-                {{#if notification.isError}}
-                  <Icons::FarCircleXmark class="w-6 h-6 fill-white text-white" />
-                {{/if}}
-                {{#if notification.isWarning}}
-                  <Icons::FasCircleExclamation class="w-6 h-6 fill-white text-white" />
-                {{/if}}
-                {{#if notification.isInfo}}
-                  <Icons::FasCircleInfo class="w-6 h-6 fill-white text-white" />
-                {{/if}}
-              </div>
-              <p class="text-base p-2">
-                {{notification.message}}
-              </p>
-            </div>
-          </div>
+<div class="h-screen py-6 flex justify-center">
+  <main class="max-w-screen-xl h-full w-full bg-white">
+    <div class="p-4">
+      <div class="grid grid-cols-6 gap-4 items-center mb-4">
+        <div class="col-span-4">
+          <h1>ember-flash-notifications</h1>
+        </div>
+        <div class="col-span-2 justify-self-end">
+          <a href="https://github.com/alexeipanov/ember-flash-notifications" title="repository" class="hover:text-rose-600 transition-colors">
+            <Icons::FabGithub class="w-10 h-10" />
+          </a>
         </div>
       </div>
-      <div class="absolute top-2 right-2 flex-shrink-0 flex">
-        <button type="button" name="close" class="flash-close">
-          <span class="sr-only">Close</span>
-          <Icons::FasTimes class="h-5 w-5" />
-        </button>
-      </div>
-    </FlashNotification>
-  {{/each}}
-</FlashNotifications>
+      <div class="grid grid-cols-6 gap-4">
+        <div class="col-span-6">
+          <h2>Idea</h2>
+          <p>This is an experimental addon using popover API to display flash notification messages.</p>
+        </div>
+        <div class="col-span-6">
+          <h2>Installation</h2>
+          <CodePreview class="command-line language-bash">ember install ember-flash-notifications</CodePreview>
+        </div>
+        <div class="col-span-6">
+          <h2>Usage</h2>
+          <h3>Minimal implementation</h3>
+          <TabsContainer
+            @tabs={{this.minTabs}}
+            as |activeTab|
+          >
+            <TabContent @id="hbs" @activeTab={{activeTab}}>
+              <FilePreview class="language-markup" @source="sources/min-template.hbs" />
+            </TabContent>
+            <TabContent @id="js" @activeTab={{activeTab}}>
+              <FilePreview class="language-javascript" @source="sources/min-code.js" />
+            </TabContent>
+            <TabContent @id="css" @activeTab={{activeTab}}>
+              <FilePreview class="language-css" @source="sources/min-style.css" />
+            </TabContent>
+          </TabsContainer>
+        </div>
 
-<div class="h-screen py-6 flex justify-center bg-slate-50 bg-gradient-to-br from-slate-50 to-sky-100 border">
-  <main class="max-w-screen-xl h-full w-full bg-white border-sky-100">
-    <div class="p-4">
-      <h2 class="text-6xl font-bold text-slate-500">Ember-essential-notifications</h2>
-      <div class="my-4">
-        <button onClick={{fn this.addNotification "error"}} type="button" class="py-2 px-6 bg-sky-600 text-white">Error</button>
-        <button onClick={{fn this.addNotification "warning"}} type="button" class="py-2 px-6 bg-sky-600 text-white">Warning</button>
-        <button onClick={{fn this.addNotification "success"}} type="button" class="py-2 px-6 bg-sky-600 text-white">Success</button>
-        <button onClick={{fn this.addNotification "info"}} type="button" class="py-2 px-6 bg-sky-600 text-white">Info</button>
+        <div class="col-span-6">
+          <button onClick={{action "showMinimalExample"}} type="button" class="py-2 px-6 w-[15rem] rounded-sm border border-rose-600 text-rose-600 font-bold">Show notification</button>
+        </div>
+
+        <div class="col-span-6">
+          <h3>Different notification types</h3>
+          <button onClick={{fn this.showTypeExample 'error'}} type="button" class="py-2 px-6 w-[15rem] rounded-sm border border-rose-600 text-rose-600 font-bold">Show error message</button>
+          <button onClick={{fn this.showTypeExample 'warning'}} type="button" class="py-2 px-6 w-[15rem] rounded-sm border border-rose-600 text-rose-600 font-bold">Show warning message</button>
+          <button onClick={{fn this.showTypeExample 'success'}} type="button" class="py-2 px-6 w-[15rem] rounded-sm border border-rose-600 text-rose-600 font-bold">Show success message</button>
+          <button onClick={{fn this.showTypeExample 'info'}} type="button" class="py-2 px-6 w-[15rem] rounded-sm border border-rose-600 text-rose-600 font-bold">Show info message</button>
+        </div>
+
+        <div class="col-start-1">
+          <button onClick={{fn this.addNotification "error"}} type="button" class="py-2 px-6 w-full rounded-sm bg-red-600 text-white">Error</button>
+        </div>
+        <div class="col-start-1">
+          <button onClick={{fn this.addNotification "warning"}} type="button" class="py-2 px-6 w-full rounded-sm bg-orange-600 text-white">Warning</button>
+        </div>
+        <div class="col-start-1">
+          <button onClick={{fn this.addNotification "success"}} type="button" class="py-2 px-6 w-full rounded-sm bg-emerald-600 text-white">Success</button>
+        </div>
+        <div class="col-start-1">
+          <button onClick={{fn this.addNotification "info"}} type="button" class="py-2 px-6 w-full rounded-sm bg-sky-600 text-white">Info</button>
+        </div>
+        <div class="col-start-1">
+          <button onClick={{fn this.addNotification "custom"}} type="button" class="py-2 px-6 w-full rounded-sm bg-blue-600 text-white">Custom</button>
+        </div>
+        <div class="col-start-1">
+          <button onClick={{this.clearNotifications}} type="button" class="py-2 px-6 w-full rounded-sm bg-sky-600 text-white">Clear</button>
+        </div>
+
+        <div class="col-span-4 col-start-1">
+
+        </div>
       </div>
     </div>
   </main>
