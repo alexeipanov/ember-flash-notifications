@@ -1,0 +1,1 @@
+../../app/components/flash-custom.js

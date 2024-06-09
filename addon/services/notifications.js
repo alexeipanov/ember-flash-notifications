@@ -2,34 +2,21 @@ import { A } from '@ember/array';
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
-class Notification {
-  type = 'info';
-  message = '';
+const defaults = {
+  duration: 5_000,
+};
 
+const defaultTypes = ['success', 'error', 'warning', 'info'];
+
+const capitalize = (str) => str.slice(0, 1).toUpperCase() + str.slice(1);
+
+const mergeOptions = (defaults, custom) => ({ ...defaults, ...custom });
+
+class Notification {
   constructor(type, message, options = {}) {
     this.type = type;
     this.message = message;
     this.options = options;
-  }
-
-  get isSuccess() {
-    return this.type === 'success';
-  }
-
-  get isError() {
-    return this.type === 'error';
-  }
-
-  get isWarning() {
-    return this.type === 'warning';
-  }
-
-  get isInfo() {
-    return this.type === 'info';
-  }
-
-  get isCustom() {
-    return this.type === 'custom';
   }
 
   get duration() {
@@ -37,22 +24,45 @@ class Notification {
   }
 }
 
-const defaults = {
-  duration: 5000,
-};
-
-const mergeOptions = (defaults, custom) => ({ ...defaults, ...custom });
-
 export default class NotificationsService extends Service {
   @tracked
   queue = A([]);
+  types = defaultTypes;
 
-  setup(options) {
+  constructor() {
+    super(...arguments);
+    this.types.forEach((type) => this.registerShorthand(type));
+  }
+
+  setOptions(options) {
     this.options = mergeOptions(defaults, options);
   }
 
-  add(type, message, options) {
-    this.queue.pushObject(new Notification(type, message, mergeOptions(this.options, options)));
+  registerShorthand(type) {
+    if (!type) {
+      throw new Error('A notification type should be a non-empty string');
+    }
+
+    this.types.push(type);
+
+    Object.defineProperty(Notification.prototype, `is${capitalize(type)}`, {
+      configurable: true,
+      get() {
+        return type === this.type;
+      },
+    });
+
+    Object.defineProperty(this, type, {
+      configurable: true,
+      value: (message, options) => this.#add(type, message, options),
+    });
+  }
+
+  #add(type, message, options) {
+    let merged = mergeOptions(this.options, options);
+    let notification = new Notification(type, message, merged);
+    this.queue.pushObject(notification);
+    return notification;
   }
 
   remove(notification) {
@@ -61,25 +71,5 @@ export default class NotificationsService extends Service {
 
   clear() {
     this.queue = A([]);
-  }
-
-  success(message, options = {}) {
-    this.add('success', message, options);
-  }
-
-  error(message, options = {}) {
-    this.add('error', message, options);
-  }
-
-  warning(message, options = {}) {
-    this.add('warning', message, options);
-  }
-
-  info(message, options = {}) {
-    this.add('info', message, options);
-  }
-
-  custom(message, options) {
-    this.add('custom', message, options);
   }
 }

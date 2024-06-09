@@ -1,82 +1,284 @@
 {{page-title "ember-flash-notifications addon"}}
 {{component this.currentComponent}}
 
-<div class="h-screen py-6 flex justify-center">
-  <main class="max-w-screen-xl h-full w-full bg-white">
-    <div class="p-4">
-      <div class="grid grid-cols-6 gap-4 items-center mb-4">
-        <div class="col-span-4">
-          <h1>ember-flash-notifications</h1>
-        </div>
-        <div class="col-span-2 justify-self-end">
-          <a href="https://github.com/alexeipanov/ember-flash-notifications" title="repository" class="hover:text-rose-600 transition-colors">
-            <Icons::FabGithub class="w-10 h-10" />
-          </a>
-        </div>
+<div class="h-screen py-6 flex justify-center scroll-smooth">
+  <div class="max-w-screen-xl h-full w-full bg-white">
+    <header class="flex align-middle justify-between">
+      <h1>ember-flash-notifications</h1>
+      <div class="col-span-2 justify-self-end">
+        <a href="https://github.com/alexeipanov/ember-flash-notifications" title="repository" class="hover:text-rose-600 transition-colors">
+          <Icons::FabGithub class="w-6 h-6" />
+        </a>
       </div>
-      <div class="grid grid-cols-6 gap-4">
-        <div class="col-span-6">
-          <h2>Idea</h2>
-          <p>This is an experimental addon using popover API to display flash notification messages.</p>
-        </div>
-        <div class="col-span-6">
-          <h2>Installation</h2>
-          <CodePreview class="command-line language-bash">ember install ember-flash-notifications</CodePreview>
-        </div>
-        <div class="col-span-6">
-          <h2>Usage</h2>
-          <h3>Minimal implementation</h3>
-          <TabsContainer
-            @tabs={{this.minTabs}}
-            as |activeTab|
-          >
-            <TabContent @id="hbs" @activeTab={{activeTab}}>
-              <FilePreview class="language-markup" @source="sources/min-template.hbs" />
-            </TabContent>
-            <TabContent @id="js" @activeTab={{activeTab}}>
-              <FilePreview class="language-javascript" @source="sources/min-code.js" />
-            </TabContent>
-            <TabContent @id="css" @activeTab={{activeTab}}>
-              <FilePreview class="language-css" @source="sources/min-style.css" />
-            </TabContent>
-          </TabsContainer>
-        </div>
+    </header>
+    <div class="grid grid-cols-6 h-full">
+      <aside class="py-4">
+        <nav class="settings">
+          <ul>
+            <ul>
+              <li><a href="#overview">Overview</a></li>
+              <li><a href="#installation">Installation</a></li>
+            </ul>
+            <li>Recipies</li>
+            <ul>
+              <li><a href="#minimal">Minimal implementation</a></li>
+              <li><a href="#types">Notification types</a></li>
+              <li><a href="#duration">Custom duration</a></li>
+              <li><a href="#close">Manual closing</a></li>
+              <li><a href="#on-close">onClose handler</a></li>
+              <li><a href="#custom-type">Custom notifications</a></li>
+            </ul>
+            <li>API Reference</li>
+            <ul>
+              <li>Notifications service</li>
+              <ul class="mb-4">
+                <li><a href="#set-options">setOptions</a></li>
+                <li><a href="#register-shorthand">registerShorthand</a></li>
+                <li><a href="#add-notification">error</a></li>
+                <li><a href="#add-notification">warning</a></li>
+                <li><a href="#add-notification">success</a></li>
+                <li><a href="#add-notification">info</a></li>
+                <li><a href="#remove-notification">remove</a></li>
+                <li><a href="#clear-notification">clear</a></li>
+              </ul>
+              <li>Components</li>
+              <ul>
+                <li><a href="#container-component">&#x3C;FlashNotifications /&#x3E;</a></li>
+                <li><a href="#notification-component">&#x3C;FlashNotification /&#x3E;</a></li>
+              </ul>
+            </ul>
+          </ul>
+        </nav>
+      </aside>
+      <main class="col-span-5">
+        <div class="p-4">
+          <section id="overview">
+            <h2>Overview</h2>
+            <p>The addon is designed to display flash notifications within Ember.js applications.</p>
+            <p>It utilizes <a href="https://developer.mozilla.org/en-US/docs/Web/API/Popover_API">Popover API</a> which works well in Chrome-based browsers but is not fully supported in Firefox, at this moment <a href="https://caniuse.com/?search=%40starting-style">@starting-style</a> rule has not been implemented yet.</p>
 
-        <div class="col-span-6">
-          <button onClick={{action "showMinimalExample"}} type="button" class="py-2 px-6 w-[15rem] rounded-sm border border-rose-600 text-rose-600 font-bold">Show notification</button>
-        </div>
+          </section>
 
-        <div class="col-span-6">
-          <h3>Different notification types</h3>
-          <button onClick={{fn this.showTypeExample 'error'}} type="button" class="py-2 px-6 w-[15rem] rounded-sm border border-rose-600 text-rose-600 font-bold">Show error message</button>
-          <button onClick={{fn this.showTypeExample 'warning'}} type="button" class="py-2 px-6 w-[15rem] rounded-sm border border-rose-600 text-rose-600 font-bold">Show warning message</button>
-          <button onClick={{fn this.showTypeExample 'success'}} type="button" class="py-2 px-6 w-[15rem] rounded-sm border border-rose-600 text-rose-600 font-bold">Show success message</button>
-          <button onClick={{fn this.showTypeExample 'info'}} type="button" class="py-2 px-6 w-[15rem] rounded-sm border border-rose-600 text-rose-600 font-bold">Show info message</button>
-        </div>
+          <section id="installation">
+            <h2>Installation</h2>
+            <CodePreview class="command-line language-bash">ember install ember-flash-notifications</CodePreview>
+          </section>
 
-        <div class="col-start-1">
-          <button onClick={{fn this.addNotification "error"}} type="button" class="py-2 px-6 w-full rounded-sm bg-red-600 text-white">Error</button>
-        </div>
-        <div class="col-start-1">
-          <button onClick={{fn this.addNotification "warning"}} type="button" class="py-2 px-6 w-full rounded-sm bg-orange-600 text-white">Warning</button>
-        </div>
-        <div class="col-start-1">
-          <button onClick={{fn this.addNotification "success"}} type="button" class="py-2 px-6 w-full rounded-sm bg-emerald-600 text-white">Success</button>
-        </div>
-        <div class="col-start-1">
-          <button onClick={{fn this.addNotification "info"}} type="button" class="py-2 px-6 w-full rounded-sm bg-sky-600 text-white">Info</button>
-        </div>
-        <div class="col-start-1">
-          <button onClick={{fn this.addNotification "custom"}} type="button" class="py-2 px-6 w-full rounded-sm bg-blue-600 text-white">Custom</button>
-        </div>
-        <div class="col-start-1">
-          <button onClick={{this.clearNotifications}} type="button" class="py-2 px-6 w-full rounded-sm bg-sky-600 text-white">Clear</button>
-        </div>
+          <section id="minimal">
+            <h2>Usage</h2>
+            <h3>Minimal implementation</h3>
+            <TabsContainer
+              @tabs={{this.codeTabs}}
+              as |activeTab|
+            >
+              <TabContent @key="hbs" @activeTab={{activeTab}}>
+                <FilePreview class="language-markup" @source="sources/flash-minimal.hbs" />
+              </TabContent>
+              <TabContent @key="js" @activeTab={{activeTab}}>
+                <FilePreview class="language-javascript" @source="sources/flash-minimal.js" />
+              </TabContent>
+              <TabContent @key="css" @activeTab={{activeTab}}>
+                <FilePreview class="language-css" @source="sources/flash-minimal.css" />
+              </TabContent>
+            </TabsContainer>
 
-        <div class="col-span-4 col-start-1">
+            <button {{on "click" this.showMinimalExample}} type="button" class="border-rose-600 text-rose-600">Show notification</button>
+          </section>
 
+          <section id="types">
+            <h3>Different notification types</h3>
+            <TabsContainer
+              @tabs={{this.codeTabs}}
+              as |activeTab|
+            >
+              <TabContent @key="hbs" @activeTab={{activeTab}}>
+                <FilePreview class="language-markup" @source="sources/flash-types.hbs" />
+              </TabContent>
+              <TabContent @key="js" @activeTab={{activeTab}}>
+                <FilePreview class="language-javascript" @source="sources/flash-types.js" />
+              </TabContent>
+              <TabContent @key="css" @activeTab={{activeTab}}>
+                <FilePreview class="language-css" @source="sources/flash-types.css" />
+              </TabContent>
+            </TabsContainer>
+
+            <button onClick={{fn this.showTypeExample "error"}} type="button" class="border-rose-600 text-rose-600">Show error message</button>
+            <button onClick={{fn this.showTypeExample "warning"}} type="button" class="border-orange-600 text-orange-600">Show warning message</button>
+            <button onClick={{fn this.showTypeExample "success"}} type="button" class="border-lime-600 text-lime-600">Show success message</button>
+            <button onClick={{fn this.showTypeExample "info"}} type="button" class="border-sky-600 text-sky-600">Show info message</button>
+          </section>
+
+          <section id="duration">
+            <h3>Custom duration</h3>
+            <p>By default, time of notification disappearing is 5s. Setting the duration to 0 makes the notification persistent.<br> This value can be overridden using initializer:</p>
+            <CodePreview class="command-line language-bash">ember g instance-initializer notifications</CodePreview>
+            <p>&nbsp;</p>
+            <TabsContainer
+              @tabs={{array (hash key="js" title="instance-initializers/notifications.js")}}
+              as |activeTab|
+            >
+              <TabContent @key="js" @activeTab={{activeTab}}>
+                <FilePreview class="language-javascript" @source="sources/initializer-duration.js" />
+              </TabContent>
+            </TabsContainer>
+
+            <p>You can also specify the duration for a particular notification.</p>
+            <TabsContainer
+              @tabs={{array (hash key="js" title="Code")}}
+              as |activeTab|
+            >
+              <TabContent @key="js" @activeTab={{activeTab}}>
+                <FilePreview class="language-javascript" @source="sources/flash-duration.js" />
+              </TabContent>
+            </TabsContainer>
+
+            <button onClick={{fn this.showDurationExample "error"}} type="button" class="border-rose-600 text-rose-600">Persistent</button>
+            <button onClick={{fn this.showDurationExample "warning"}} type="button" class="border-orange-600 text-orange-600">10s duration</button>
+          </section>
+
+          <section id="close">
+            <h3>Manual closing a notification</h3>
+            <p>You'll need to define an element with <code>name="close"</code> attribute:</p>
+
+            <TabsContainer
+              @tabs={{array (hash key="hbs" title="Template")}}
+              as |activeTab|
+            >
+              <TabContent @key="hbs" @activeTab={{activeTab}}>
+                <FilePreview class="language-markup" @source="sources/flash-close.hbs" />
+              </TabContent>
+            </TabsContainer>
+
+            <button {{on "click" this.showCloseExample}} type="button" class="w-[20rem] border-sky-600 text-sky-600">Message with close button</button>
+          </section>
+
+          <section id="clear">
+            <h3>Clear all notifications</h3>
+            <p>Note: when fired, no any transitions and no <code>onClose</code> calls will be applied.</p>
+            <TabsContainer
+              @tabs={{array (hash key="js" title="Code")}}
+              as |activeTab|
+            >
+              <TabContent @key="js" @activeTab={{activeTab}}>
+                <FilePreview class="language-javascript" @source="sources/flash-clear.js" />
+              </TabContent>
+            </TabsContainer>
+          </section>
+
+          <section id="on-close">
+            <h3>Custom onClose handler</h3>
+            <p>Fired on CSS transition ends</p>
+            <TabsContainer
+              @tabs={{array (hash key="hbs" title="Tempate") (hash key="js" title="Code")}}
+              as |activeTab|
+            >
+              <TabContent @key="hbs" @activeTab={{activeTab}}>
+                <FilePreview class="language-markup" @source="sources/flash-on-close.hbs" />
+              </TabContent>
+              <TabContent @key="js" @activeTab={{activeTab}}>
+                <FilePreview class="language-javascript" @source="sources/flash-on-close.js" />
+              </TabContent>
+            </TabsContainer>
+
+            <button {{on "click" this.showOnCloseExample}} type="button" class="border-sky-600 text-sky-600">OnClose handler</button>
+          </section>
+
+          <section id="custom-type">
+            <h3>Custom notification</h3>
+            <TabsContainer
+              @tabs={{array (hash key="js" title="instance-initializers/notifications.js")}}
+              as |activeTab|
+            >
+              <TabContent @key="js" @activeTab={{activeTab}}>
+                <FilePreview class="language-javascript" @source="sources/initializer-custom.js" />
+              </TabContent>
+            </TabsContainer>
+
+            <TabsContainer
+              @tabs={{array (hash key="hbs" title="Tempate") (hash key="js" title="Code")}}
+              as |activeTab|
+            >
+              <TabContent @key="hbs" @activeTab={{activeTab}}>
+                <FilePreview class="language-markup" @source="sources/flash-custom.hbs" />
+              </TabContent>
+              <TabContent @key="js" @activeTab={{activeTab}}>
+                <FilePreview class="language-javascript" @source="sources/flash-custom.js" />
+              </TabContent>
+            </TabsContainer>
+
+            <button {{on "click" this.showCustomExample}} type="button" class="border-lime-600 text-lime-600">Custom notification</button>
+          </section>
+
+          <section class="api-entry" id="set-options">
+            <h1>API Reference</h1>
+            <h2>Notifications service</h2>
+            <code class="title">setOptions(options)</code>
+            <p>Sets the default options for notifications by merging with existing defaults.</p>
+            <ul>
+              <li><code>options (Object)</code>: Custom options to be merged with the default options.</li>
+            </ul>
+          </section>
+
+          <section class="api-entry" id="register-shorthand">
+            <code class="title">registerShorthand(type)</code>
+            <p>Registers a shorthand method for creating notifications of a specific type and adds a getter property (is&#x3C;Type&#x3E;) to the Notification prototype.</p>
+            <p><code>type (String)</code>: The type of notification to register.</p>
+          </section>
+
+          <section class="api-entry" id="add-notification">
+            <code class="title">error(message, options)</code>
+            <code class="title">warning(message, options)</code>
+            <code class="title">success(message, options)</code>
+            <code class="title">info(message, options)</code>
+            <div>
+            <p>Adds a error (warning, success, of info notification appropriately) notification to the queue.</p>
+            <ul>
+              <li><code>message (String)</code>: The message to be displayed.</li>
+              <li><code>options (Object)</code>: Instance-specific options for the notification.</li>
+            </ul>
+            </div>
+          </section>
+
+          <section class="api-entry" id="remove-notification">
+            <code class="title">remove(notification)</code>
+            <p>Removes a specific notification from the queue.</p>
+            <p><code>notification (Object)</code>: The notification object to be removed.</p>
+          </section>
+
+          <section class="api-entry" id="clear-notification">
+            <code class="title">clear()</code>
+            <p>Clears all notifications from the queue.</p>
+          </section>
+
+          <section class="api-entry" id="container-component">
+            <h2>Components</h2>
+            <code class="title">FlashNotifications</code>
+            <p>FlashNotifications component is a container that manages and displays a list of notification messages. It yields each notification to be rendered within FlashNotification component.</p>
+          </section>
+
+          <section class="api-entry" id="notification-component">
+            <code class="title">FlashNotification</code>
+            <p>The FlashNotification component is responsible for rendering individual notification messages.</p>
+            <p>Arguments:</p>
+            <ul>
+              <li><code>notification (Object)</code>: Notification object to be displayed.</li>
+              <li><code>onClose (function)</code>: A callback function to be invoked when the notification is closed.</li>
+            </ul>
+
+            <TabsContainer
+              @tabs={{array (hash key="hbs" title="Tempate") (hash key="js" title="Code")}}
+              as |activeTab|
+            >
+              <TabContent @key="hbs" @activeTab={{activeTab}}>
+                <FilePreview class="language-markup" @source="sources/flash-on-close.hbs" />
+              </TabContent>
+              <TabContent @key="js" @activeTab={{activeTab}}>
+                <FilePreview class="language-javascript" @source="sources/flash-on-close.js" />
+              </TabContent>
+            </TabsContainer>
+          </section>
         </div>
-      </div>
+      </main>
     </div>
-  </main>
+  </div>
 </div>

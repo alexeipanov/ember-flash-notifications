@@ -1,0 +1,29 @@
+<FlashNotifications as |notification|>
+  <FlashNotification class={{notification.type}} @notification={{notification}}>
+    <div class="p-1 bg-transparent">
+      <div class="flash-content">
+        {{#if notification.isCustom}}
+          <div class="text-sm font-bold text-slate-500 mr-4">{{notification.options.title}}</div>
+        {{/if}}
+        <div class="flex gap-4">
+          <div class="flash-type">
+            <img class="w-16 h-16" src="biohazard.svg" alt="Notification type icon" />
+          </div>
+          <div>
+            <div class="flex flex-col grow">
+              <span class="text-xs">{{notification.message}}</span>
+              <code class="text-xs text-slate-400">{{notification.options.error}}</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute top-1 right-1 flex-shrink-0 flex">
+          <div role="button" name="close" class="flash-close text-gray-400">
+            <span class="sr-only">Close</span>
+            <Icons::FasTimes role="presentation" class="h-4 w-4" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </FlashNotification>
+</FlashNotifications>

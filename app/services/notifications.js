@@ -1,1 +1,1 @@
-export { default } from 'essential-flash-notifications/services/notifications';
+export { default } from 'ember-flash-notifications/services/notifications';

@@ -8,5 +8,14 @@ module.exports = {
     './tests/dummy/app/templates/**/*.hbs',
     './tests/dummy/app/components/**/*.hbs',
   ],
-  theme: { ...defaultTheme },
+  theme: {
+    ...defaultTheme,
+    extend: {
+      fontFamily: {
+        header: ['Gilroy', ...defaultTheme.fontFamily.sans],
+        base: ['Inter', ...defaultTheme.fontFamily.serif],
+        mono: ['NotoSansMono', ...defaultTheme.fontFamily.mono],
+      },
+    },
+  },
 };

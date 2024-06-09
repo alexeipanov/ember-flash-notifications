@@ -1,26 +1,25 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
-import { render } from '@ember/test-helpers';
+import { render, waitFor } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
 module('Integration | Component | flash-notification', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+    this.notifications = this.owner.lookup('service:notifications');
+    this.notification = this.notifications.success('Test message');
 
-    await render(hbs`<FlashNotification />`);
-
-    assert.dom().hasText('');
-
-    // Template block usage:
     await render(hbs`
-      <FlashNotification>
-        template block text
-      </FlashNotification>
+      <div class="flash-list">
+        <FlashNotification @notification={{this.notification}}>
+          <div class={{this.notification.type}}>{{this.notification.message}}</div>
+        </FlashNotification>
+      </div>
     `);
 
-    assert.dom().hasText('template block text');
+    await waitFor('.success');
+    assert.dom('.success').exists();
+    this.notifications.destroy();
   });
 });

@@ -6,7 +6,7 @@ export default class FlashComponent extends Component {
   @service notifications;
 
   @action
-  addNotification() {
-    this.notifications.error('Something is going wrong!');
+  clearNotifications() {
+    this.notifications.clear();
   }
 }

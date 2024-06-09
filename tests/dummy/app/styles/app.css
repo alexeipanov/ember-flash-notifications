@@ -1,12 +1,20 @@
+@import url("noto.css");
+@import url("gilroy.css");
+@import url("inter.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
+  body {
+    @apply font-base text-slate-600;
+  }
+
   h1,
   h2,
   h3 {
-    @apply font-light text-slate-500;
+    @apply font-header font-light text-slate-500;
   }
 
   h1 {
@@ -14,21 +22,65 @@
   }
 
   h2 {
-    @apply text-2xl;
+    @apply text-2xl mb-2;
   }
 
   h3 {
-    @apply text-xl;
+    @apply text-lg font-base font-bold mb-2;
   }
 
   p {
-    @apply text-slate-700;
+    @apply text-slate-600;
+  }
+
+  a {
+    @apply transition-colors text-rose-400 hover:text-rose-500;
   }
 
   pre[class*="language-"] {
     margin: 0;
 
-    @apply rounded-sm border border-slate-200;
+    @apply font-mono rounded-sm border border-slate-200;
+  }
+
+  code {
+    @apply font-mono text-sm;
+  }
+
+  code.title {
+    @apply font-bold;
+  }
+
+  code[class*="language-"] {
+    @apply font-mono font-normal text-sm;
+  }
+
+  button {
+    @apply py-2 px-6 w-[15rem] rounded-sm border font-bold;
+  }
+
+  section {
+    @apply mb-12;
+  }
+
+  nav {
+    @apply sticky top-4;
+  }
+
+  nav > ul > li {
+    @apply mt-4 mb-2 font-bold uppercase text-slate-500;
+  }
+
+  nav > ul ul > li {
+    @apply my-2 font-normal text-slate-500;
+  }
+
+  nav > ul ul ul > li {
+    @apply list-disc list-inside font-normal text-slate-500;
+  }
+
+  nav li a {
+    @apply transition-colors text-inherit active:text-rose-500 hover:text-rose-500;
   }
 
   .tab-container pre[class*="language-"] {
@@ -40,7 +92,7 @@
   }
 
   .flash {
-    @apply w-80 pointer-events-auto bg-transparent border-transparent border transform-gpu transition-all duration-500 block opacity-0 -translate-x-full;
+    @apply w-80 text-sm font-bold pointer-events-auto bg-transparent border-transparent border transform-gpu transition-all duration-500 block opacity-0 -translate-x-full;
   }
 
   .flash:popover-open {
@@ -53,28 +105,12 @@
     }
   }
 
-  .flash .flash-content {
-    @apply bg-white;
-  }
-
-  .flash.success .flash-content {
-    @apply text-emerald-500 border-emerald-500;
-  }
-
-  .flash.error .flash-content {
-    @apply text-red-500 border-red-500;
-  }
-
-  .flash.warning .flash-content {
-    @apply text-orange-500 border-orange-500;
-  }
-
-  .flash.info .flash-content {
-    @apply text-sky-500 border-sky-500;
-  }
-
   .flash.custom {
     @apply w-[40rem];
+  }
+
+  .flash .flash-content {
+    @apply relative flex-1 text-sm bg-white border px-2 py-1 rounded;
   }
 
   .flash.custom .flash-content {
@@ -89,20 +125,40 @@
     @apply mx-0 flex-shrink-0 flex items-center justify-center text-white;
   }
 
-  .flash .flash-content {
-    @apply relative w-0 flex-1 text-sm border rounded;
+  .flash .flash-close {
+    @apply text-white focus:outline-none;
   }
 
-  .flash .flash-close {
-    @apply focus:outline-none;
+  .flash > div {
+    @apply text-white p-2 rounded-sm;
+  }
+
+  .flash > div.error {
+    @apply bg-rose-500;
+  }
+
+  .flash > div.warning {
+    @apply bg-orange-500;
+  }
+
+  .flash > div.success {
+    @apply bg-lime-500;
+  }
+
+  .flash > div.info {
+    @apply bg-sky-500;
   }
 
   .tabs {
     @apply -mb-px flex;
   }
 
+  .tabs-menu {
+    @apply mt-4;
+  }
+
   .tab {
-    @apply rounded-t-sm border border-slate-200 border-b border-b-slate-200 bg-slate-100 py-2 px-4 -ml-px text-slate-500 transition-colors duration-500 ease-in-out;
+    @apply font-bold rounded-t-sm border border-slate-200 border-b border-b-slate-200 bg-slate-100 py-2 px-4 -ml-px text-slate-500 transition-colors duration-500 ease-in-out;
   }
 
   .tab:first-child {
@@ -110,7 +166,7 @@
   }
 
   .tab.active {
-    @apply text-slate-700 bg-[#f5f2f0] border border-slate-200 border-b border-b-transparent;
+    @apply text-slate-500 bg-[#f5f2f0] border border-slate-200 border-b border-b-transparent;
   }
 
   .tab-content {
@@ -121,7 +177,19 @@
     @apply block;
   }
 
-  .tabs-container {
-    @apply border border-slate-200 p-6 rounded-b-sm;
+  .tab-container {
+    @apply mb-4 rounded-b-sm;
+  }
+
+  .api-entry code {
+    @apply text-slate-500;
+  }
+
+  .api-entry code.title {
+    @apply block text-slate-600;
+  }
+
+  .api-entry code.title:last-of-type {
+    @apply mb-2;
   }
 }

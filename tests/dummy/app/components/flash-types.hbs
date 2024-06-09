@@ -1,1 +1,5 @@
-{{yield}}
+<FlashNotifications as |notification|>
+  <FlashNotification @notification={{notification}}>
+    <div class={{notification.type}}>{{notification.message}}</div>
+  </FlashNotification>
+</FlashNotifications>

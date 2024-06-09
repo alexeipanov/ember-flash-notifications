@@ -1,4 +1,4 @@
-<div class="tabs-menu" ...attributes>
+<div class="tabs-menu">
   <nav class="tabs" aria-label="Tabs">
     {{#each @tabs as |tab|}}
       <span
@@ -12,6 +12,6 @@
     {{/each}}
   </nav>
 </div>
-<div class="tab-container">
+<div class="tab-container" ...attributes>
   {{yield this.activeTab}}
 </div>
