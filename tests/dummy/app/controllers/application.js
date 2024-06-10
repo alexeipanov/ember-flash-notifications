@@ -38,7 +38,7 @@ export default class FlashComponent extends Component {
 }
 
 .flash {
-  @apply w-80 border transition-opacity block opacity-0;
+  @apply w-80 transition-opacity block opacity-0;
 }
 
 .flash:popover-open {
@@ -96,7 +96,7 @@ export default class FlashComponent extends Component {
 }
 
 .flash {
-  @apply w-80 border transition-opacity block opacity-0;
+  @apply w-80 transition-opacity block opacity-0;
 }
 
 .flash:popover-open {

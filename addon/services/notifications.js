@@ -31,10 +31,11 @@ export default class NotificationsService extends Service {
 
   constructor() {
     super(...arguments);
+    this.setOptions();
     this.types.forEach((type) => this.registerShorthand(type));
   }
 
-  setOptions(options) {
+  setOptions(options = {}) {
     this.options = mergeOptions(defaults, options);
   }
 

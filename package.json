@@ -1,9 +1,9 @@
 {
   "name": "ember-flash-notifications",
   "version": "0.1.2",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Addon to display flash notifications in Ember.js applications",
   "keywords": [
-    "ember-addon"
+    "ember-addon", "ember", "ember-cli", "flash", "notification", "popover"
   ],
   "repository": {
     "type": "git",
@@ -36,7 +36,8 @@
   "dependencies": {
     "@babel/core": "^7.24.7",
     "ember-cli-babel": "^8.2.0",
-    "ember-cli-htmlbars": "^6.3.0"
+    "ember-cli-htmlbars": "^6.3.0",
+    "ember-essential-modifiers": "^1.0.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.24.7",
@@ -58,7 +59,6 @@
     "ember-cli-postcss": "^8.2.0",
     "ember-cli-sri": "^2.1.1",
     "ember-cli-terser": "^4.0.2",
-    "ember-essential-modifiers": "^1.0.2",
     "ember-load-initializers": "^2.1.2",
     "ember-page-title": "^8.2.3",
     "ember-qunit": "^8.0.2",
