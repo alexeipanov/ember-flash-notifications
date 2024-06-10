@@ -37,10 +37,8 @@
     @apply transition-colors text-rose-400 hover:text-rose-500;
   }
 
-  pre[class*="language-"] {
-    margin: 0;
-
-    @apply font-mono rounded-sm border border-slate-200;
+  pre {
+    @apply py-2 px-4 font-mono rounded-sm border bg-zinc-100 border-slate-200;
   }
 
   code {
@@ -158,7 +156,7 @@
   }
 
   .tab {
-    @apply font-bold rounded-t-sm border border-slate-200 border-b border-b-slate-200 bg-slate-100 py-2 px-4 -ml-px text-slate-500 transition-colors duration-500 ease-in-out;
+    @apply font-bold rounded-t-sm border border-slate-200 border-b border-b-slate-200 bg-white py-2 px-4 -ml-px text-slate-500 transition-colors duration-500 ease-in-out;
   }
 
   .tab:first-child {
@@ -166,7 +164,7 @@
   }
 
   .tab.active {
-    @apply text-slate-500 bg-[#f5f2f0] border border-slate-200 border-b border-b-transparent;
+    @apply text-slate-500 bg-zinc-100 border border-slate-200 border-b border-b-transparent;
   }
 
   .tab-content {

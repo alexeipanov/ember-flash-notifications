@@ -19,21 +19,7 @@ module.exports = function (defaults) {
         ],
       },
     },
-
-    babel: {
-      plugins: [
-        [
-          'prismjs',
-          {
-            languages: ['javascript', 'css', 'markup', 'bash'],
-            plugins: ['command-line', 'file-highlight'],
-            css: true,
-          },
-        ],
-      ],
-    },
   });
 
-  app.import('node_modules/prismjs/themes/prism.css');
   return app.toTree();
 };

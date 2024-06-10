@@ -23,10 +23,10 @@
             <ul>
               <li><a href="#minimal">Minimal implementation</a></li>
               <li><a href="#types">Notification types</a></li>
+              <li><a href="#custom-type">Custom notifications</a></li>
               <li><a href="#duration">Custom duration</a></li>
               <li><a href="#close">Manual closing</a></li>
               <li><a href="#on-close">onClose handler</a></li>
-              <li><a href="#custom-type">Custom notifications</a></li>
             </ul>
             <li>API Reference</li>
             <ul>
@@ -61,7 +61,7 @@
 
           <section id="installation">
             <h2>Installation</h2>
-            <CodePreview class="command-line language-bash">ember install ember-flash-notifications</CodePreview>
+            <CodePreview class="command-line language-bash" @source="ember install ember-flash-notifications" />
           </section>
 
           <section id="minimal">
@@ -72,13 +72,13 @@
               as |activeTab|
             >
               <TabContent @key="hbs" @activeTab={{activeTab}}>
-                <FilePreview class="language-markup" @source="sources/flash-minimal.hbs" />
+                <CodePreview class="language-markup" @source={{this.flashMiniTemplate}} />
               </TabContent>
               <TabContent @key="js" @activeTab={{activeTab}}>
-                <FilePreview class="language-javascript" @source="sources/flash-minimal.js" />
+                <CodePreview class="language-javascript" @source={{this.flashMiniCode}} />
               </TabContent>
               <TabContent @key="css" @activeTab={{activeTab}}>
-                <FilePreview class="language-css" @source="sources/flash-minimal.css" />
+                <CodePreview class="language-css" @source={{this.flashMiniStyle}} />
               </TabContent>
             </TabsContainer>
 
@@ -92,13 +92,13 @@
               as |activeTab|
             >
               <TabContent @key="hbs" @activeTab={{activeTab}}>
-                <FilePreview class="language-markup" @source="sources/flash-types.hbs" />
+                <CodePreview class="language-markup" @source={{this.flashTypesTemplate}} />
               </TabContent>
               <TabContent @key="js" @activeTab={{activeTab}}>
-                <FilePreview class="language-javascript" @source="sources/flash-types.js" />
+                <CodePreview class="language-javascript" @source={{this.flashTypesCode}} />
               </TabContent>
               <TabContent @key="css" @activeTab={{activeTab}}>
-                <FilePreview class="language-css" @source="sources/flash-types.css" />
+                <CodePreview class="language-css" @source={{this.flashTypesStyle}} />
               </TabContent>
             </TabsContainer>
 
@@ -108,17 +108,45 @@
             <button onClick={{fn this.showTypeExample "info"}} type="button" class="border-sky-600 text-sky-600">Show info message</button>
           </section>
 
-          <section id="duration">
-            <h3>Custom duration</h3>
-            <p>By default, time of notification disappearing is 5s. Setting the duration to 0 makes the notification persistent.<br> This value can be overridden using initializer:</p>
-            <CodePreview class="command-line language-bash">ember g instance-initializer notifications</CodePreview>
+          <section id="custom-type">
+            <h3>Custom notifications</h3>
+            <CodePreview class="command-line language-bash" @source="ember g instance-initializer notifications"/>
             <p>&nbsp;</p>
             <TabsContainer
               @tabs={{array (hash key="js" title="instance-initializers/notifications.js")}}
               as |activeTab|
             >
               <TabContent @key="js" @activeTab={{activeTab}}>
-                <FilePreview class="language-javascript" @source="sources/initializer-duration.js" />
+                <CodePreview class="language-javascript" @source={{this.customInitializerCode}} />
+              </TabContent>
+            </TabsContainer>
+
+            <TabsContainer
+              @tabs={{array (hash key="hbs" title="Tempate") (hash key="js" title="Code")}}
+              as |activeTab|
+            >
+              <TabContent @key="hbs" @activeTab={{activeTab}}>
+                <CodePreview class="language-markup" @source={{this.flashCustomTemplate}} />
+              </TabContent>
+              <TabContent @key="js" @activeTab={{activeTab}}>
+                <CodePreview class="language-javascript" @source={{this.flashCustomCode}} />
+              </TabContent>
+            </TabsContainer>
+
+            <button {{on "click" this.showCustomExample}} type="button" class="border-lime-600 text-lime-600">Custom notification</button>
+          </section>
+
+          <section id="duration">
+            <h3>Custom duration</h3>
+            <p>By default, the time of notification disappearing is 5s. Setting the duration to 0 makes the notification persistent.<br> This value can be overridden using initializer:</p>
+            <CodePreview class="command-line language-bash" @source="ember g instance-initializer notifications"/>
+            <p>&nbsp;</p>
+            <TabsContainer
+              @tabs={{array (hash key="js" title="instance-initializers/notifications.js")}}
+              as |activeTab|
+            >
+              <TabContent @key="js" @activeTab={{activeTab}}>
+                <CodePreview class="language-javascript" @source={{this.durationInitializer}} />
               </TabContent>
             </TabsContainer>
 
@@ -128,7 +156,7 @@
               as |activeTab|
             >
               <TabContent @key="js" @activeTab={{activeTab}}>
-                <FilePreview class="language-javascript" @source="sources/flash-duration.js" />
+                <CodePreview class="language-javascript" @source={{this.flashDurationCode}} />
               </TabContent>
             </TabsContainer>
 
@@ -145,7 +173,7 @@
               as |activeTab|
             >
               <TabContent @key="hbs" @activeTab={{activeTab}}>
-                <FilePreview class="language-markup" @source="sources/flash-close.hbs" />
+                <CodePreview class="language-markup" @source={{this.flashCloseTemplate}} />
               </TabContent>
             </TabsContainer>
 
@@ -160,7 +188,7 @@
               as |activeTab|
             >
               <TabContent @key="js" @activeTab={{activeTab}}>
-                <FilePreview class="language-javascript" @source="sources/flash-clear.js" />
+                <CodePreview class="language-javascript" @source={{this.flashClearCode}} />
               </TabContent>
             </TabsContainer>
           </section>
@@ -173,40 +201,14 @@
               as |activeTab|
             >
               <TabContent @key="hbs" @activeTab={{activeTab}}>
-                <FilePreview class="language-markup" @source="sources/flash-on-close.hbs" />
+                <CodePreview class="language-markup" @source={{this.flashOnCloseTemplate}} />
               </TabContent>
               <TabContent @key="js" @activeTab={{activeTab}}>
-                <FilePreview class="language-javascript" @source="sources/flash-on-close.js" />
+                <CodePreview class="language-javascript" @source={{this.flashOnCloseCode}} />
               </TabContent>
             </TabsContainer>
 
             <button {{on "click" this.showOnCloseExample}} type="button" class="border-sky-600 text-sky-600">OnClose handler</button>
-          </section>
-
-          <section id="custom-type">
-            <h3>Custom notification</h3>
-            <TabsContainer
-              @tabs={{array (hash key="js" title="instance-initializers/notifications.js")}}
-              as |activeTab|
-            >
-              <TabContent @key="js" @activeTab={{activeTab}}>
-                <FilePreview class="language-javascript" @source="sources/initializer-custom.js" />
-              </TabContent>
-            </TabsContainer>
-
-            <TabsContainer
-              @tabs={{array (hash key="hbs" title="Tempate") (hash key="js" title="Code")}}
-              as |activeTab|
-            >
-              <TabContent @key="hbs" @activeTab={{activeTab}}>
-                <FilePreview class="language-markup" @source="sources/flash-custom.hbs" />
-              </TabContent>
-              <TabContent @key="js" @activeTab={{activeTab}}>
-                <FilePreview class="language-javascript" @source="sources/flash-custom.js" />
-              </TabContent>
-            </TabsContainer>
-
-            <button {{on "click" this.showCustomExample}} type="button" class="border-lime-600 text-lime-600">Custom notification</button>
           </section>
 
           <section class="api-entry" id="set-options">
@@ -270,10 +272,10 @@
               as |activeTab|
             >
               <TabContent @key="hbs" @activeTab={{activeTab}}>
-                <FilePreview class="language-markup" @source="sources/flash-on-close.hbs" />
+                <CodePreview class="language-markup" @source={{this.flashOnCloseTemplate}} />
               </TabContent>
               <TabContent @key="js" @activeTab={{activeTab}}>
-                <FilePreview class="language-javascript" @source="sources/flash-on-close.js" />
+                <CodePreview class="language-javascript" @source={{this.flashOnCloseCode}} />
               </TabContent>
             </TabsContainer>
           </section>
