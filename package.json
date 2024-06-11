@@ -1,6 +1,6 @@
 {
   "name": "ember-flash-notifications",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Addon to display flash notifications in Ember.js applications",
   "keywords": [
     "ember-addon",
